@@ -22,3 +22,9 @@ console.log(stds.indexOf("std5")) // results will be -1
 
 var cars = ["a","b","c","i"]
 console.log(cars.push("n")) // return 5
+
+var sayNode = function() {
+    console.log('Node');
+};
+var es ='ES';
+var oldObject = {sayJS: function() {console.log('JS');},sayNode: sayNode,};oldObject[es + 6] ='Fantastic';oldObject.sayNode(); // NodeoldObject.sayJS(); // JSconsole.log(oldObject.ES6); // Fantastic
