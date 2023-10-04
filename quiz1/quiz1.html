@@ -1,0 +1,143 @@
+<!-- 
+자바스크립트 지식을 활용하여 다음과 같은 웹 폼을 사용하여 아래 작업을 수행하십시오.
+
+제출 버튼을 누를 때 validateForm을 사용하여 폼을 유효성 검사해야 합니다. 예를 들어 비밀번호와 확인 비밀번호가 유사한지 여부를 확인하고 유효성 검사 오류가 있으면 false를 반환해야 합니다.
+
+saveForm을 구현하고 폼 항목의 JSON을 구성해야 합니다. 이를 전역 변수로 저장하거나 JSON 파일로 저장할 수 있습니다.
+
+populateEntry 함수를 구현해야 합니다. 이 함수는 JSON 파일을 인수로 받아 테이블 행을 채워야 합니다. 
+ -->
+
+<html>
+  <head>
+    <title>Quiz 1</title>
+  </head>
+  <body>
+    <h2>회원가입</h2>
+    <form method="post" name="form" id="formInfo">
+      <div class="form-row">
+        <label for="username">Username</label>
+        <input type="text" value="" name="username" id="username" />
+      </div>
+      <div class="form-row">
+        <label for="pwd">Password</label>
+        <input type="text" value="" name="pwd" id="pwd" />
+      </div>
+      <div class="form-row">
+        <label for="cpwd">Confirm Password</label>
+        <input type="text" value="" name="cpwd" id="cpwd" />
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" value="" name="email" id="email" />
+      </div>
+      <div class="form-row">
+        <input type="radio" name="gender" value="0" id="male" checked />
+        <label for="male">Male</label>
+        <input type="radio" name="gender" value="1" id="female" />
+        <label for="female">Female</label>
+      </div>
+      <div class="form-row">
+        <label for="email">Skills</label>:
+        <input type="checkbox" name="skills" value="HTML" checked />
+        <label for="female">HTML</label>
+        <input type="checkbox" name="skills" value="Javascript" />
+        <label for="female">JAVASCRIPT</label>
+      </div>
+      <div class="form-row">
+        <select name="countries" size="4">
+          <option value="-1">Select Counrtry</option>
+          <optgroup label="Asia">
+            <option value="kr" selected>대한민국</option>
+            <option value="uz" selected>우즈베키스탄</option>
+            <option value="pk">파키스탄</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option value="uk">연국</option>
+            <option value="gr">독일</option>
+          </optgroup>
+        </select>
+      </div>
+      <button type="submit" id="submitBtn">회원가입</button>
+    </form>
+
+    <table style="display: none" id="tb">
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Country</th>
+        <th>Gender</th>
+      </tr>
+    </table>
+  </body>
+</html>
+
+<script type="text/Javascript">
+
+      const btn = document.getElementById('submitBtn')
+      btn.addEventListener('click',function(e) {
+          const pwd = document.getElementById('pwd').value
+          const cpwd = document.getElementById('cpwd').value
+
+          e.preventDefault();
+          if (validateForm() !== false) {
+              console.log("비밀번호 확인됨")
+              populateEntry(saveForm());
+          }else {
+              alert(" 비밀번호를 다시 확인해주세요.")
+              // pwd = ""
+              // cpwd = ""
+          }
+      })
+
+      function validateForm(argument) {
+          const pwd = document.getElementById('pwd').value
+          const cpwd = document.getElementById('cpwd').value
+          if (pwd !== cpwd) {
+              pwd.value = ""
+              cpwd.value = ""
+              return false;
+          }
+      }
+
+      // 영식 입력한 정보 저정하는 함수
+      function saveForm(params) {
+          const form = document.getElementById("formInfo")
+          const rawData = new FormData(form)
+          const dataObj = {}
+          for (let [key, value] of rawData.entries()) {
+              if (dataObj[key]) { //이미 하나 값이 존재하면 (더 추가되는 배열이 되어야 한다면)
+                      dataObj[key] = [dataObj[key], value]; //배열을 만들어 요소 추가
+              } else {
+                  dataObj[key] = value;
+              }
+          }
+          return JSON.stringify(dataObj)
+      }
+
+      function populateEntry(data) {
+          const tb = document.getElementById('tb');
+          const new_row = tb.insertRow();
+          const parsed = JSON.parse(data);
+          if (data.length > 0) {
+              tb.style.display = '';
+          }
+
+
+          for(let i=0; i< 4; i++){ //length 변환
+              const new_cell =ㅋ new_row.insertCell(i);
+              if (i === 0) {
+                  new_cell.textContent = parsed['username'];
+              }
+              if (i === 1) {
+                  new_cell.textContent = parsed['email'];
+              }
+              if (i === 2) {
+                  new_cell.textContent = parsed['countries'];
+              }
+              if (i === 3) {
+                  new_cell.textContent = parsed['gender'];
+              }
+      }
+  }
+</script>
