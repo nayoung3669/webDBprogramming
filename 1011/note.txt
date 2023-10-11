@@ -1,0 +1,18 @@
+Express.js
+
+req 의 종류
+- GET : 데이터 검색,
+- POST : body, db에 데이터를 저장할 때
+- PUT: 데이터를 수정할 때
+- DELETE
+
+
+SQL
+- INSERT
+- SELECT
+- DELETE
+- UPDATE
+
+mysql -> node.js에서 사용 -> npm
+
+php myadmin으로 GUI
