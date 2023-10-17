@@ -43,14 +43,14 @@ app.get("/signup", (req, res) => {
 //경로 "/" 필요
 app.post("/process/signup", (req, res) => {
   console.log(req.body);
-  pool.getConnection(() => {
+  pool.getConnection((err, conn) => {
     if (err) {
       throw err;
     }
-    username = params.username;
-    password = params.pwd;
-    email = params.email;
-    gender = params.gender;
+    const username = req.params.username;
+    const pwd = req.params.pwd;
+    const email = req.params.email;
+    const gender = req.params.gender;
 
     const exec = conn.query(
       "INSERT INTO users (username, pwd, email, gender) VALUES (?, password(?), ?, ?)",
@@ -62,7 +62,6 @@ app.post("/process/signup", (req, res) => {
           res.send(`User with record ID has been added`);
         } else {
           //connection 다시 반납 -> 자원을 많이 소모하는 작업이기 때문에, 매번 필요할 때마다 새로운 연결을 생성하는 것은 비효율적이기 때문
-          conn.release();
           console.log(`The data from the user table are:11 \n`, rows);
         }
       },

@@ -1,6 +1,3 @@
-//express.js
-//lab
-
 const express = require("express");
 
 const app = express();
@@ -11,9 +8,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.send("About page!");
+  res.send("about");
 });
 
 app.listen(port, "localhost", () => {
-  console.log(`Example app is listening on port ${port}`);
+  console.log("Server is running on port");
 });
