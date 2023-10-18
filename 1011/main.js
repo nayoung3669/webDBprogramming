@@ -41,7 +41,7 @@ app.get("/signup", (req, res) => {
 });
 
 //경로 "/" 필요
-app.post("/process/signup", (req, res) => {
+app.post("/proceㅕㅕㅑ₩₩ss/signup", (req, res) => {
   console.log(req.body);
   pool.getConnection((err, conn) => {
     if (err) {

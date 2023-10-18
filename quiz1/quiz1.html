@@ -73,7 +73,6 @@ populateEntry 함수를 구현해야 합니다. 이 함수는 JSON 파일을 인
 </html>
 
 <script type="text/Javascript">
-
       const btn = document.getElementById('submitBtn')
       btn.addEventListener('click',function(e) {
           const pwd = document.getElementById('pwd').value
@@ -106,8 +105,12 @@ populateEntry 함수를 구현해야 합니다. 이 함수는 JSON 파일을 인
           const rawData = new FormData(form)
           const dataObj = {}
           for (let [key, value] of rawData.entries()) {
-              if (dataObj[key]) { //이미 하나 값이 존재하면 (더 추가되는 배열이 되어야 한다면)
-                      dataObj[key] = [dataObj[key], value]; //배열을 만들어 요소 추가
+              if (dataObj[key]) {
+                  if (Array.isArray(dataObj[key])) {
+                      dataObj[key].push(value);
+                  } else {
+                      dataObj[key] = [dataObj[key], value];
+                  }
               } else {
                   dataObj[key] = value;
               }
