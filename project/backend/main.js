@@ -1,4 +1,3 @@
-const path = require("path");
 const express = require("express");
 const mysql = require("mysql");
 
@@ -16,21 +15,36 @@ app.listen(8080, () => {
   console.log("8080 port 연결 성공");
 });
 
-app.get("/", (req, res) => {
-  res.send("hi");
+//todos 전체조회
+app.get("/api/posts", (req, res) => {
+  res.send("전체조회");
+});
+
+//todo 상세조회
+app.get(`/api/posts/detail/:id`, (req, res) => {
+  const params = req.body;
+  const id = params.id;
+  res.send("전체조회");
 });
 
 //todo 추가
-app.post("/process/todo", (req, res) => {
+app.post("/api/todos", (req, res) => {
   const params = req.body;
-
-  //form Data 만들기
-  const dataObj = { username, pwd, email, login_count, imported };
-
+  // const dataObj = { };
+  console.log("------");
+  console.log(params);
   res.send("<h1>Successfully added!</h1>");
 });
 
-// 로그인 로직
-app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/pages/login.html");
+//todo 수정
+app.put(`/api/todos/:id`, (req, res) => {
+  const params = req.body;
+  const id = params.id;
+  res.send("<h1>Successfully updated!</h1>");
+});
+
+//todo 삭제
+app.delete(`/api/todos/:id`, (req, res) => {
+  const params = req.body;
+  res.send("<h1>Successfully deleted!</h1>");
 });
